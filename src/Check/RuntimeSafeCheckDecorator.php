@@ -29,6 +29,10 @@ final class RuntimeSafeCheckDecorator implements CheckInterface
 
     public function getTitle(): string
     {
-        return $this->check->getTitle();
+        try {
+            return $this->check->getTitle();
+        } catch (Throwable $exception) {
+            return 'Cannot provide title of check';
+        }
     }
 }

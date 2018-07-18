@@ -3,6 +3,7 @@
     "require": {
         "php": ">=7.1",
         "psr/container": "^1.0",
+        "psr/log": "^1.0",
         "violet/streaming-json-encoder": "^1.1",
         "zendframework/zend-diactoros": "^1.8"
     },

@@ -5,7 +5,7 @@ namespace HealthCheck;
 use HealthCheck\Check\CheckInterface;
 use HealthCheck\Check\CollectionRepositoryInterface;
 
-final class Runner
+final class Runner implements CheckRunner
 {
     private $checks;
 
@@ -17,7 +17,7 @@ final class Runner
     public function runCheck(string $name): Result
     {
         if ($this->checks->has($name)) {
-            return $this->checks->get($name)->check();
+            return $this->run($this->checks->get($name));
         }
     }
 
@@ -25,7 +25,12 @@ final class Runner
     {
         /* @var $check CheckInterface */
         foreach ($this->checks->getAll() as $name => $check) {
-            yield $name => $check->check();
+            yield $name => $this->run($check);
         }
+    }
+
+    public function run(CheckInterface $check): Result
+    {
+        return $check->check();
     }
 }

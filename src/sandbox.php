@@ -56,7 +56,8 @@ $encoder = (new \Violet\StreamingJsonEncoder\BufferJsonEncoder(function () use (
     $passed = new notappearResultserializer($failure);
     $f = function () use ($runner, $success, $failure) {
         foreach ($runner->runChecks() as $name => $result) {
-            yield $result->getCheck()->getTitle() => [
+            yield $name => [
+                'title' => $result->getCheck()->getTitle(),
                 'message' => $result->getMessage(),
                 'data' => $result->getData(),
             ];
